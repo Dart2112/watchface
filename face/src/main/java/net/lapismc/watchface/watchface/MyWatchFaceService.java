@@ -239,7 +239,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                     mDateFormatTime = System.currentTimeMillis();
                 }
             } else {
-                //TODO Enable ambient mode
+                mIsImageBackground = !mIsImageBackground;
             }
         }
 
@@ -266,6 +266,18 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
 
         @Override
         public void onDraw(Canvas canvas, Rect bounds) {
+            if (mIsImageBackground) {
+                int alpha = 150;
+                mTimePaint.setAlpha(alpha);
+                mDatePaint.setAlpha(alpha);
+                mBatteryPaint.setAlpha(alpha);
+            } else {
+                int alpha = 255;
+                mTimePaint.setAlpha(alpha);
+                mDatePaint.setAlpha(alpha);
+                mBatteryPaint.setAlpha(alpha);
+            }
+
             long now = System.currentTimeMillis();
             mCalendar.setTimeInMillis(now);
 
