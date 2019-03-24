@@ -94,6 +94,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
         private boolean mIsCleanDateFormat;
 
         private boolean mIsImageBackground = false;
+        private long mLastTapTime = 0L;
         private Bitmap mBackgroundBitmap, mGrayBackgroundBitmap;
         private Paint mBackgroundPaint;
         private Paint mHandPaint;
@@ -239,7 +240,10 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                     mDateFormatTime = System.currentTimeMillis();
                 }
             } else {
-                mIsImageBackground = !mIsImageBackground;
+                if (mLastTapTime != 0 && System.currentTimeMillis() - mLastTapTime < 1000) {
+                    mIsImageBackground = !mIsImageBackground;
+                }
+                mLastTapTime = System.currentTimeMillis();
             }
         }
 
@@ -331,7 +335,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             if (mBatteryCounter >= 3 || mAmbient) {
                 IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
                 Intent batteryStatus = MyWatchFaceService.this.registerReceiver(null, iFilter);
-                int watchBattery = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+                int watchBattery = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) : 0;
                 mBatteryText = watchBattery + "%";
                 mBatteryCounter = 0;
             }
