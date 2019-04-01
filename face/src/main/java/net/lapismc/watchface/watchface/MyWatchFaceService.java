@@ -102,6 +102,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
         private Paint mDatePaint;
         private Paint mBatteryPaint;
 
+        private SimpleDateFormat mAllInfoTimeFormat;
         private SimpleDateFormat mTimeFormat;
         private SimpleDateFormat mCleanDateFormat;
         private SimpleDateFormat mStandardDateFormat;
@@ -172,9 +173,10 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                 mBatteryPaint.setAlpha(alpha);
             }
 
+            mAllInfoTimeFormat = new SimpleDateFormat("hh:mm:ss dd/MM/yyyy");
             mTimeFormat = new SimpleDateFormat("hh:mm");
             mCleanDateFormat = new SimpleDateFormat("EE dd MMM");
-            mStandardDateFormat = new SimpleDateFormat("dd/MM/yy");
+            mStandardDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
             mCalendar = Calendar.getInstance();
             mIsCleanDateFormat = true;
@@ -270,6 +272,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
 
         @Override
         public void onDraw(Canvas canvas, Rect bounds) {
+            System.out.println(mAllInfoTimeFormat.format(mCalendar.getTime().getTime()));
             if (mIsImageBackground) {
                 int alpha = 150;
                 mTimePaint.setAlpha(alpha);
