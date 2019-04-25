@@ -274,7 +274,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
         public void onDraw(Canvas canvas, Rect bounds) {
             System.out.println(mAllInfoTimeFormat.format(mCalendar.getTime().getTime()));
             if (mIsImageBackground) {
-                int alpha = 150;
+                int alpha = 175;
                 mTimePaint.setAlpha(alpha);
                 mDatePaint.setAlpha(alpha);
                 mBatteryPaint.setAlpha(alpha);
@@ -289,14 +289,13 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             mCalendar.setTimeInMillis(now);
 
             // Draw the background.
+            canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mBackgroundPaint);
             if (mIsImageBackground) {
                 if (mAmbient) {
                     canvas.drawBitmap(mGrayBackgroundBitmap, 0, 0, mBackgroundPaint);
                 } else {
                     canvas.drawBitmap(mBackgroundBitmap, 0, 0, mBackgroundPaint);
                 }
-            } else {
-                canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mBackgroundPaint);
             }
 
             mOffsetCounter++;
