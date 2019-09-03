@@ -339,6 +339,15 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                 Intent batteryStatus = MyWatchFaceService.this.registerReceiver(null, iFilter);
                 int watchBattery = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) : 0;
                 mBatteryText = watchBattery + "%";
+                //50 normal , 55 low battery
+                //White normal but red on low battery
+                if (watchBattery > 25) {
+                    mBatteryPaint.setColor(Color.WHITE);
+                    mBatteryPaint.setTextSize(50);
+                } else {
+                    mBatteryPaint.setColor(mAmbient ? Color.WHITE : Color.RED);
+                    mBatteryPaint.setTextSize(55);
+                }
                 mBatteryCounter = 0;
             }
             mBatteryCounter++;
@@ -355,6 +364,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                  */
                 final float seconds = (mCalendar.get(Calendar.SECOND) + mCalendar.get(Calendar.MILLISECOND) / 1000f);
                 final float secondsRotation = seconds * 6f;
+                mHandPaint.setColor(((int) seconds) % 10 == 0 ? Color.CYAN : Color.WHITE);
                 canvas.save();
                 canvas.rotate(secondsRotation + 180, mCenterX, mCenterY);
                 float lengthOfSecondHand = 0.2f;
