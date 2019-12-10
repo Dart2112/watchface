@@ -30,9 +30,12 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.icu.text.SimpleDateFormat;
+import android.media.MediaPlayer;
 import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.Message;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.wearable.watchface.CanvasWatchFaceService;
 import android.support.wearable.watchface.WatchFaceStyle;
 import android.view.SurfaceHolder;
@@ -112,19 +115,22 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
 
         private boolean mAmbient;
 
-        private int mWidth;
         private int mHeight;
         private float mCenterX;
         private float mCenterY;
 
         private String mBatteryText;
         private int mBatteryCounter;
+        private boolean mLowBattery;
+        private int mCurrentHour;
         private Long mDateFormatTime;
 
         private int mOffsetY, mOffsetX;
         private int mOffsetCounter;
 
         private float mTimeX, mTimeY, mTimeLength, mTimeHeight;
+
+        private MediaPlayer mMediaPlayer;
 
         @Override
         public void onCreate(SurfaceHolder holder) {
@@ -166,13 +172,6 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             mBatteryPaint.setTypeface(EasyFonts.robotoMedium(getBaseContext()));
             mBatteryCounter = 3;
 
-            if (mIsImageBackground) {
-                int alpha = 100;
-                mTimePaint.setAlpha(alpha);
-                mDatePaint.setAlpha(alpha);
-                mBatteryPaint.setAlpha(alpha);
-            }
-
             mAllInfoTimeFormat = new SimpleDateFormat("hh:mm:ss dd/MM/yyyy");
             mTimeFormat = new SimpleDateFormat("hh:mm");
             mCleanDateFormat = new SimpleDateFormat("EE dd MMM");
@@ -180,6 +179,8 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
 
             mCalendar = Calendar.getInstance();
             mIsCleanDateFormat = true;
+
+            mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.beep);
         }
 
         @Override
@@ -252,7 +253,6 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
         @Override
         public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             super.onSurfaceChanged(holder, format, width, height);
-            mWidth = width;
             mHeight = height;
             /*
              * Find the coordinates of the center point on the screen.
@@ -260,7 +260,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
              * with a "chin", the watch face is centered on the entire screen,
              * not just the usable portion.
              */
-            mCenterX = mWidth / 2f;
+            mCenterX = width / 2f;
             mCenterY = mHeight / 2f;
 
             float mScale = ((float) width) / (float) mBackgroundBitmap.getWidth();
@@ -273,20 +273,63 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
         @Override
         public void onDraw(Canvas canvas, Rect bounds) {
             System.out.println(mAllInfoTimeFormat.format(mCalendar.getTime().getTime()));
+
+            //Get battery percentage and check if it is below 25%
+            if (mBatteryCounter >= 3 || mAmbient) {
+                IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+                Intent batteryStatus = MyWatchFaceService.this.registerReceiver(null, iFilter);
+                int watchBattery = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) : 0;
+                mBatteryText = watchBattery + "%";
+                //50 normal , 60 low battery
+                //White normal but red on low battery
+                mLowBattery = watchBattery < 26;
+                if (watchBattery > 25) {
+                    mBatteryPaint.setTextSize(50);
+                } else {
+                    mBatteryPaint.setTextSize(60);
+                }
+                mBatteryCounter = 0;
+            }
+            mBatteryCounter++;
+
             if (mIsImageBackground) {
-                int alpha = 175;
+                //175
+                int alpha = 255;
+                int colour = Color.LTGRAY;
                 mTimePaint.setAlpha(alpha);
+                mTimePaint.setColor(colour);
                 mDatePaint.setAlpha(alpha);
+                mDatePaint.setColor(colour);
                 mBatteryPaint.setAlpha(alpha);
+                if (mLowBattery)
+                    mBatteryPaint.setColor(Color.RED);
+                else
+                    mBatteryPaint.setColor(colour);
             } else {
                 int alpha = 255;
+                int colour = Color.WHITE;
                 mTimePaint.setAlpha(alpha);
+                mTimePaint.setColor(colour);
                 mDatePaint.setAlpha(alpha);
+                mDatePaint.setColor(colour);
                 mBatteryPaint.setAlpha(alpha);
+                if (mLowBattery)
+                    mBatteryPaint.setColor(Color.RED);
+                else
+                    mBatteryPaint.setColor(colour);
             }
 
             long now = System.currentTimeMillis();
             mCalendar.setTimeInMillis(now);
+
+            //Deal with offset for burn in prevention
+            mOffsetCounter++;
+            if (mOffsetCounter >= 30 || mAmbient) {
+                Random r = new Random();
+                mOffsetCounter = 0;
+                mOffsetX = r.nextBoolean() ? -r.nextInt(15) : r.nextInt(15);
+                mOffsetY = r.nextBoolean() ? -r.nextInt(15) : r.nextInt(15);
+            }
 
             // Draw the background.
             canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mBackgroundPaint);
@@ -298,14 +341,19 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                 }
             }
 
-            mOffsetCounter++;
-            if (mOffsetCounter >= 30 || mAmbient) {
-                Random r = new Random();
-                mOffsetCounter = 0;
-                mOffsetX = r.nextBoolean() ? -r.nextInt(15) : r.nextInt(15);
-                mOffsetY = r.nextBoolean() ? -r.nextInt(15) : r.nextInt(15);
+            //Vibrate if on the hour
+            if (mCurrentHour != mCalendar.get(Calendar.HOUR_OF_DAY)) {
+                Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+                long[] timings = {750, 100, 500};
+                int[] amplitudes = {100, 0, 255};
+                vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1));
+                //If the time is between 6am and 11pm(23 hours) exclusive
+                if (mCurrentHour > 6 && mCurrentHour < 23)
+                    mMediaPlayer.start();
+                mCurrentHour = mCalendar.get(Calendar.HOUR_OF_DAY);
             }
 
+            //Get and draw the time
             String time = mTimeFormat.format(mCalendar.getTime());
             Rect timeBounds = new Rect();
             mTimePaint.getTextBounds(time, 0, time.length(), timeBounds);
@@ -333,24 +381,6 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             mDatePaint.getTextBounds(date, 0, date.length(), dateBounds);
             int dateOffset = timeBounds.height() / 2 + dateBounds.height() / 2;
             canvas.drawText(date, mCenterX - (mDatePaint.measureText(date) / 2) + mOffsetX, mCenterY - dateOffset + mOffsetY, mDatePaint);
-
-            if (mBatteryCounter >= 3 || mAmbient) {
-                IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-                Intent batteryStatus = MyWatchFaceService.this.registerReceiver(null, iFilter);
-                int watchBattery = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) : 0;
-                mBatteryText = watchBattery + "%";
-                //50 normal , 55 low battery
-                //White normal but red on low battery
-                if (watchBattery > 25) {
-                    mBatteryPaint.setColor(Color.WHITE);
-                    mBatteryPaint.setTextSize(50);
-                } else {
-                    mBatteryPaint.setColor(mAmbient ? Color.WHITE : Color.RED);
-                    mBatteryPaint.setTextSize(55);
-                }
-                mBatteryCounter = 0;
-            }
-            mBatteryCounter++;
 
             Rect batteryBounds = new Rect();
             mBatteryPaint.getTextBounds(mBatteryText, 0, mBatteryText.length(), batteryBounds);
