@@ -343,14 +343,18 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
 
             //Vibrate if on the hour
             if (mCurrentHour != mCalendar.get(Calendar.HOUR_OF_DAY)) {
-                Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                long[] timings = {750, 100, 500};
-                int[] amplitudes = {100, 0, 255};
-                vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1));
-                //If the time is between 6am and 11pm(23 hours) exclusive
-                if (mCurrentHour > 6 && mCurrentHour < 23)
-                    mMediaPlayer.start();
                 mCurrentHour = mCalendar.get(Calendar.HOUR_OF_DAY);
+                //Check if the minutes is 00
+                //This stops it going off when the watch is woken up or the app installed
+                if (mCalendar.get(Calendar.MINUTE) == 0) {
+                    Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+                    long[] timings = {750, 100, 500};
+                    int[] amplitudes = {100, 0, 255};
+                    vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1));
+                    //If the time is between 6am and 11pm(23 hours) exclusive
+                    if (mCurrentHour > 6 && mCurrentHour < 23)
+                        mMediaPlayer.start();
+                }
             }
 
             //Get and draw the time
