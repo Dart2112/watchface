@@ -30,6 +30,7 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.icu.text.SimpleDateFormat;
+import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.BatteryManager;
 import android.os.Handler;
@@ -44,6 +45,7 @@ import com.vstechlab.easyfonts.EasyFonts;
 
 import net.lapismc.watchface.R;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.TimeZone;
@@ -348,9 +350,24 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                 //This stops it going off when the watch is woken up or the app installed
                 if (mCalendar.get(Calendar.MINUTE) == 0) {
                     Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                    long[] timings = {750, 100, 500};
-                    int[] amplitudes = {100, 0, 255};
-                    vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1));
+                    // 2 alert vibes + 1 break 12 hours * 2
+                    long[] timings = new long[27];
+                    int[] amplitudes = new int[27];
+                    timings[0] = 750;
+                    timings[1] = 500;
+                    timings[2] = 1000;
+                    amplitudes[0] = 100;
+                    amplitudes[1] = 255;
+                    amplitudes[2] = 0;
+                    int hour = mCalendar.get(Calendar.HOUR);
+                    if (hour == 0) hour = 12;
+                    for (int i = 3; i < timings.length; i++) {
+                        timings[i] = i % 2 == 0 ? 250 : 500;
+                        amplitudes[i] = i % 2 == 0 || (i / 2) > hour ? 0 : 255;
+
+                    }
+                    System.out.println(Arrays.toString(timings) + " : " + Arrays.toString(amplitudes));
+                    vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1), new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build());
                     //If the time is between 6am and 11pm(23 hours) exclusive
                     if (mCurrentHour > 6 && mCurrentHour < 23)
                         mMediaPlayer.start();
