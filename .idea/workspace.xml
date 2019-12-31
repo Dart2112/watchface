@@ -11,7 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="66c9222c-c649-46d5-a193-d3f7d257aeca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/face/src/main/res/raw/beep.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/face/src/main/res/raw/beep.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/face/src/main/java/net/lapismc/watchface/watchface/MyWatchFaceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/face/src/main/java/net/lapismc/watchface/watchface/MyWatchFaceService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/classes/" />
@@ -65,7 +65,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="571e5410" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Wear_OS_Round_API_28" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -93,8 +93,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/face/src/main/java/net/lapismc/watchface/watchface/MyWatchFaceService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="358" column="40" selection-start-line="358" selection-start-column="40" selection-end-line="358" selection-end-column="40" />
+            <state relative-caret-position="187">
+              <caret line="330" column="33" selection-start-line="330" selection-start-column="33" selection-end-line="330" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#19274#19275#0" expanded="true" />
@@ -132,29 +132,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="watchface" type="1abcf292:AndroidViewProjectNode" />
-              <item name="face" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="watchface" type="1abcf292:AndroidViewProjectNode" />
-              <item name="face" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="watchface" type="1abcf292:AndroidViewProjectNode" />
-              <item name="face" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="raw" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -178,11 +156,12 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="M6600TB12C85" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2019-12-25T02:03:50.687Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2019-12-31T04:37:00.858Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="device.picker.selection" value="Wear_OS_Round_API_28" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/face/src/main/res/raw" />
@@ -342,7 +321,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576489634630</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Made beep white noise">
+      <created>1577239548456</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1577239548456</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -388,7 +374,8 @@
     <MESSAGE value="Updated order of operations for vibrate and beep on hour&#10;Added check for not vibrating or beeping if its not on the hour&#10;e.g. when the ap is launched or the watch wakes up" />
     <MESSAGE value="Updated to add vibrations for hours on the hour" />
     <MESSAGE value="Made beep quieter" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made beep quieter" />
+    <MESSAGE value="Made beep white noise" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made beep white noise" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -448,8 +435,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/face/src/main/java/net/lapismc/watchface/watchface/MyWatchFaceService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="358" column="40" selection-start-line="358" selection-start-column="40" selection-end-line="358" selection-end-column="40" />
+        <state relative-caret-position="187">
+          <caret line="330" column="33" selection-start-line="330" selection-start-column="33" selection-end-line="330" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#19274#19275#0" expanded="true" />

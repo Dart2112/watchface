@@ -328,9 +328,10 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             mOffsetCounter++;
             if (mOffsetCounter >= 30 || mAmbient) {
                 Random r = new Random();
+                int variance = 30;
                 mOffsetCounter = 0;
-                mOffsetX = r.nextBoolean() ? -r.nextInt(15) : r.nextInt(15);
-                mOffsetY = r.nextBoolean() ? -r.nextInt(15) : r.nextInt(15);
+                mOffsetX = r.nextBoolean() ? -r.nextInt(variance) : r.nextInt(variance);
+                mOffsetY = r.nextBoolean() ? -r.nextInt(variance) : r.nextInt(variance);
             }
 
             // Draw the background.
@@ -370,6 +371,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                     vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1), new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build());
                     //If the time is between 6am and 11pm(23 hours) exclusive
                     if (mCurrentHour > 6 && mCurrentHour < 23)
+                        mMediaPlayer.setVolume(0.25f, 0.25f);
                         mMediaPlayer.start();
                 }
             }
