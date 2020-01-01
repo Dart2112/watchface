@@ -9,10 +9,7 @@
     <last-search-timestamp>1558351628941</last-search-timestamp>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66c9222c-c649-46d5-a193-d3f7d257aeca" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/face/src/main/java/net/lapismc/watchface/watchface/MyWatchFaceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/face/src/main/java/net/lapismc/watchface/watchface/MyWatchFaceService.java" afterDir="false" />
-    </list>
+    <list default="true" id="66c9222c-c649-46d5-a193-d3f7d257aeca" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/face/build/generated/not_namespaced_r_class_sources/" />
@@ -93,8 +90,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/face/src/main/java/net/lapismc/watchface/watchface/MyWatchFaceService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="330" column="33" selection-start-line="330" selection-start-column="33" selection-end-line="330" selection-end-column="33" />
+            <state relative-caret-position="-8">
+              <caret line="347" column="70" lean-forward="true" selection-start-line="347" selection-start-column="70" selection-end-line="347" selection-end-column="70" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#19274#19275#0" expanded="true" />
@@ -328,7 +325,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577239548456</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Made the burn in protection more aggressive and reduced the volume of the beep">
+      <created>1577767264135</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1577767264135</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -375,7 +379,8 @@
     <MESSAGE value="Updated to add vibrations for hours on the hour" />
     <MESSAGE value="Made beep quieter" />
     <MESSAGE value="Made beep white noise" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made beep white noise" />
+    <MESSAGE value="Made the burn in protection more aggressive and reduced the volume of the beep" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made the burn in protection more aggressive and reduced the volume of the beep" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -435,8 +440,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/face/src/main/java/net/lapismc/watchface/watchface/MyWatchFaceService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="330" column="33" selection-start-line="330" selection-start-column="33" selection-end-line="330" selection-end-column="33" />
+        <state relative-caret-position="-8">
+          <caret line="347" column="70" lean-forward="true" selection-start-line="347" selection-start-column="70" selection-end-line="347" selection-end-column="70" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#19274#19275#0" expanded="true" />

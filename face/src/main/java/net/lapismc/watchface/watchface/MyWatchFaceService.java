@@ -370,9 +370,10 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                     System.out.println(Arrays.toString(timings) + " : " + Arrays.toString(amplitudes));
                     vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1), new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build());
                     //If the time is between 6am and 11pm(23 hours) exclusive
-                    if (mCurrentHour > 6 && mCurrentHour < 23)
+                    if (mCurrentHour > 6 && mCurrentHour < 23) {
                         mMediaPlayer.setVolume(0.25f, 0.25f);
                         mMediaPlayer.start();
+                    }
                 }
             }
 
