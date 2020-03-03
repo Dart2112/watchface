@@ -21,12 +21,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.icu.text.SimpleDateFormat;
@@ -98,10 +94,12 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
         };
         private boolean mIsCleanDateFormat;
 
-        private boolean mIsImageBackground = false;
+        private boolean mIsSilentMode = false;
+
         private long mLastTapTime = 0L;
-        private Bitmap mBackgroundBitmap, mGrayBackgroundBitmap;
         private Paint mBackgroundPaint;
+        private Paint mAmbientPaint;
+        private Paint mSilentModePaint;
         private Paint mHandPaint;
         private Paint mTimePaint;
         private Paint mDatePaint;
@@ -111,9 +109,6 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
         private SimpleDateFormat mTimeFormat;
         private SimpleDateFormat mCleanDateFormat;
         private SimpleDateFormat mStandardDateFormat;
-
-        private int mAmbientColor;
-        private int mInteractiveColor;
 
         private boolean mAmbient;
 
@@ -147,13 +142,18 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             mHandPaint.setAntiAlias(true);
             mHandPaint.setStyle(Paint.Style.STROKE);
 
-            mInteractiveColor = Color.BLUE;
-            mAmbientColor = Color.BLACK;
+            int mInteractiveColor = Color.BLUE;
+            int mSilentModeColor = Color.rgb(0, 0, 50);
+            int mAmbientColor = Color.BLACK;
 
             mBackgroundPaint = new Paint();
             mBackgroundPaint.setColor(mInteractiveColor);
-            mBackgroundBitmap = BitmapFactory.decodeResource(getResources(),
-                    R.drawable.custom_background);
+
+            mAmbientPaint = new Paint();
+            mAmbientPaint.setColor(mAmbientColor);
+
+            mSilentModePaint = new Paint();
+            mSilentModePaint.setColor(mSilentModeColor);
 
             mTimePaint = new Paint();
             mTimePaint.setTextSize(110);
@@ -206,11 +206,9 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             }
 
             if (mAmbient) {
-                mBackgroundPaint.setColor(mAmbientColor);
                 mTimePaint.setAntiAlias(false);
                 mDatePaint.setAntiAlias(false);
             } else {
-                mBackgroundPaint.setColor(mInteractiveColor);
                 mTimePaint.setAntiAlias(true);
                 mDatePaint.setAntiAlias(true);
             }
@@ -246,7 +244,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                 }
             } else {
                 if (mLastTapTime != 0 && System.currentTimeMillis() - mLastTapTime < 1000) {
-                    mIsImageBackground = !mIsImageBackground;
+                    mIsSilentMode = !mIsSilentMode;
                 }
                 mLastTapTime = System.currentTimeMillis();
             }
@@ -264,12 +262,6 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
              */
             mCenterX = width / 2f;
             mCenterY = mHeight / 2f;
-
-            float mScale = ((float) width) / (float) mBackgroundBitmap.getWidth();
-            mBackgroundBitmap = Bitmap.createScaledBitmap
-                    (mBackgroundBitmap, (int) (mBackgroundBitmap.getWidth() * mScale),
-                            (int) (mBackgroundBitmap.getHeight() * mScale), true);
-            initGrayBackgroundBitmap();
         }
 
         @Override
@@ -294,10 +286,10 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             }
             mBatteryCounter++;
 
-            if (mIsImageBackground) {
+            if (mIsSilentMode) {
                 //175
                 int alpha = 255;
-                int colour = Color.LTGRAY;
+                int colour = Color.GRAY;
                 mTimePaint.setAlpha(alpha);
                 mTimePaint.setColor(colour);
                 mDatePaint.setAlpha(alpha);
@@ -335,12 +327,13 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             }
 
             // Draw the background.
-            canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mBackgroundPaint);
-            if (mIsImageBackground) {
-                if (mAmbient) {
-                    canvas.drawBitmap(mGrayBackgroundBitmap, 0, 0, mBackgroundPaint);
+            if (mAmbient) {
+                canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mAmbientPaint);
+            } else {
+                if (mIsSilentMode) {
+                    canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mSilentModePaint);
                 } else {
-                    canvas.drawBitmap(mBackgroundBitmap, 0, 0, mBackgroundPaint);
+                    canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mBackgroundPaint);
                 }
             }
 
@@ -370,7 +363,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                     System.out.println(Arrays.toString(timings) + " : " + Arrays.toString(amplitudes));
                     vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1), new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build());
                     //If the time is between 6am and 11pm(23 hours) exclusive
-                    if (mCurrentHour > 6 && mCurrentHour < 23) {
+                    if (!mIsSilentMode) {
                         mMediaPlayer.setVolume(0.25f, 0.25f);
                         mMediaPlayer.start();
                     }
@@ -418,7 +411,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                  */
                 final float seconds = (mCalendar.get(Calendar.SECOND) + mCalendar.get(Calendar.MILLISECOND) / 1000f);
                 final float secondsRotation = seconds * 6f;
-                mHandPaint.setColor(((int) seconds) % 10 == 0 ? Color.CYAN : Color.WHITE);
+                mHandPaint.setColor(((int) seconds) % 15 == 0 ? Color.CYAN : Color.WHITE);
                 canvas.save();
                 canvas.rotate(secondsRotation + 180, mCenterX, mCenterY);
                 float lengthOfSecondHand = 0.2f;
@@ -482,18 +475,5 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             return isVisible() && !isInAmbientMode();
         }
 
-        private void initGrayBackgroundBitmap() {
-            mGrayBackgroundBitmap = Bitmap.createBitmap(
-                    mBackgroundBitmap.getWidth(),
-                    mBackgroundBitmap.getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(mGrayBackgroundBitmap);
-            Paint grayPaint = new Paint();
-            ColorMatrix colorMatrix = new ColorMatrix();
-            colorMatrix.setSaturation(0);
-            ColorMatrixColorFilter filter = new
-                    ColorMatrixColorFilter(colorMatrix);
-            grayPaint.setColorFilter(filter);
-            canvas.drawBitmap(mBackgroundBitmap, 0, 0, grayPaint);
-        }
     }
 }
