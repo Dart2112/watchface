@@ -155,20 +155,25 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             mSilentModePaint = new Paint();
             mSilentModePaint.setColor(mSilentModeColor);
 
+            float textScale = 1.2f;
+
             mTimePaint = new Paint();
             mTimePaint.setTextSize(110);
+            mTimePaint.setTextSize(mTimePaint.getTextSize() * textScale);
             mTimePaint.setColor(Color.WHITE);
             mTimePaint.setAntiAlias(true);
             mTimePaint.setTypeface(EasyFonts.captureIt(getBaseContext()));
 
             mDatePaint = new Paint();
             mDatePaint.setTextSize(25);
+            mDatePaint.setTextSize(mDatePaint.getTextSize() * textScale);
             mDatePaint.setColor(Color.WHITE);
             mDatePaint.setAntiAlias(true);
             mDatePaint.setTypeface(EasyFonts.droidSerifRegular(getBaseContext()));
 
             mBatteryPaint = new Paint();
             mBatteryPaint.setTextSize(50);
+            mBatteryPaint.setTextSize(mBatteryPaint.getTextSize() * textScale);
             mBatteryPaint.setColor(Color.WHITE);
             mBatteryPaint.setAntiAlias(true);
             mBatteryPaint.setTypeface(EasyFonts.robotoMedium(getBaseContext()));
