@@ -27,6 +27,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.icu.text.SimpleDateFormat;
 import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.BatteryManager;
 import android.os.Handler;
@@ -188,6 +189,12 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             mIsCleanDateFormat = true;
 
             mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.beep);
+
+
+            //Set max volume on boot, this is in case it was in silent mode when the watch booted
+            AudioManager man = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            int maxVolume = man.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+            man.setStreamVolume(AudioManager.STREAM_NOTIFICATION, maxVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
         }
 
         @Override
@@ -250,6 +257,14 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             } else {
                 if (mLastTapTime != 0 && System.currentTimeMillis() - mLastTapTime < 1000) {
                     mIsSilentMode = !mIsSilentMode;
+                    //Process ring volume change for silent mode
+                    AudioManager man = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                    if (mIsSilentMode) {
+                        man.setStreamVolume(AudioManager.STREAM_NOTIFICATION, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    } else {
+                        int maxVolume = man.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                        man.setStreamVolume(AudioManager.STREAM_NOTIFICATION, maxVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                    }
                 }
                 mLastTapTime = System.currentTimeMillis();
             }

@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.vstechlab.easyfonts:easyfonts:1.0.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/78a1f99857d72c6581a3136226904948/easyfonts-1.0.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/78a1f99857d72c6581a3136226904948/easyfonts-1.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3635b2cab0161662934c531e214ec88a/easyfonts-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3635b2cab0161662934c531e214ec88a/easyfonts-1.0.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vstechlab.easyfonts/easyfonts/1.0.0/a431f5faeea4bf348470630dd39a443ae105b925/easyfonts-1.0.0-javadoc.jar!/" />
