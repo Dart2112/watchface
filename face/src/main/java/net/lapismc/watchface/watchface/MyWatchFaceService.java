@@ -235,7 +235,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
         @Override
         public void onTapCommand(int tapType, int x, int y, long time) {
             //Top left = 0. Bottom right = 1
-            if (tapType != 0) {
+            if (tapType != TAP_TYPE_TAP) {
                 return;
             }
             int x0, y0, x1, y1;
