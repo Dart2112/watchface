@@ -376,9 +376,11 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                     int hour = mCalendar.get(Calendar.HOUR);
                     if (hour == 0) hour = 12;
                     for (int i = 3; i < timings.length; i++) {
-                        timings[i] = i % 2 == 0 ? 250 : 500;
+                        //(i % 2 == 0) = off time
+                        // 100 off, 250 on
+                        timings[i] = i % 2 == 0 ? 100 : 250;
+                        // 0 off, 255 on
                         amplitudes[i] = i % 2 == 0 || (i / 2) > hour ? 0 : 255;
-
                     }
                     System.out.println(Arrays.toString(timings) + " : " + Arrays.toString(amplitudes));
                     vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1), new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build());
