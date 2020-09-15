@@ -378,7 +378,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                     for (int i = 3; i < timings.length; i++) {
                         //(i % 2 == 0) = off time
                         // 100 off, 250 on
-                        timings[i] = i % 2 == 0 ? 100 : 250;
+                        timings[i] = i % 2 == 0 ? 200 : 250;
                         // 0 off, 255 on
                         amplitudes[i] = i % 2 == 0 || (i / 2) > hour ? 0 : 255;
                     }
