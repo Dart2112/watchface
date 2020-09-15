@@ -296,8 +296,8 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                 mBatteryText = watchBattery + "%";
                 //50 normal , 60 low battery
                 //White normal but red on low battery
-                mLowBattery = watchBattery < 26;
-                if (watchBattery > 25) {
+                mLowBattery = watchBattery < 31;
+                if (watchBattery > 30) {
                     mBatteryPaint.setTextSize(50);
                 } else {
                     mBatteryPaint.setTextSize(60);
