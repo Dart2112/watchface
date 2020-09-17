@@ -386,7 +386,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                     vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1), new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build());
                     //If the time is between 6am and 11pm(23 hours) exclusive
                     if (!mIsSilentMode) {
-                        mMediaPlayer.setVolume(0.25f, 0.25f);
+                        mMediaPlayer.setVolume(0.1f, 0.1f);
                         mMediaPlayer.start();
                     }
                 }
