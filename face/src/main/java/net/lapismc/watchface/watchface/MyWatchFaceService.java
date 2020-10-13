@@ -319,6 +319,16 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                     mBatteryPaint.setColor(Color.RED);
                 else
                     mBatteryPaint.setColor(colour);
+
+                //Process ring volume change for silent mode
+                //This is here to enforce the mute of sound
+                AudioManager man = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                if (mIsSilentMode) {
+                    man.setStreamVolume(AudioManager.STREAM_NOTIFICATION, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                } else {
+                    int maxVolume = man.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                    man.setStreamVolume(AudioManager.STREAM_NOTIFICATION, maxVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                }
             } else {
                 int alpha = 255;
                 int colour = Color.WHITE;
