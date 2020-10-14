@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.vstechlab.easyfonts:easyfonts:1.0.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0615da85a6ab512dc0abc6c3f4d5d15c/jetified-easyfonts-1.0.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0615da85a6ab512dc0abc6c3f4d5d15c/jetified-easyfonts-1.0.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0615da85a6ab512dc0abc6c3f4d5d15c/jetified-easyfonts-1.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6311c72d95fdb6414465e88254c6f50a/jetified-easyfonts-1.0.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6311c72d95fdb6414465e88254c6f50a/jetified-easyfonts-1.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6311c72d95fdb6414465e88254c6f50a/jetified-easyfonts-1.0.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vstechlab.easyfonts/easyfonts/1.0.0/a431f5faeea4bf348470630dd39a443ae105b925/easyfonts-1.0.0-javadoc.jar!/" />

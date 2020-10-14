@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/face/face.iml" filepath="$PROJECT_DIR$/face/face.iml" group="watchface/face" />
-      <module fileurl="file://$PROJECT_DIR$/watchface.iml" filepath="$PROJECT_DIR$/watchface.iml" group="watchface" />
+      <module fileurl="file://$PROJECT_DIR$/watchface.iml" filepath="$PROJECT_DIR$/watchface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/face/watchface.face.iml" filepath="$PROJECT_DIR$/.idea/modules/face/watchface.face.iml" />
     </modules>
   </component>
 </project>
