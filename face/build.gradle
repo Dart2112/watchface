@@ -19,7 +19,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion '30.0.2'
+    buildToolsVersion '30.0.3'
 
     defaultConfig {
         applicationId "net.lapismc.watchface.watchface"
@@ -50,9 +50,9 @@ configurations.all {
 }
 
 dependencies {
-    implementation 'com.android.support.constraint:constraint-layout:2.0.1'
-    compileOnly 'com.google.android.wearable:wearable:2.7.0'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+    compileOnly 'com.google.android.wearable:wearable:2.8.1'
     implementation 'com.vstechlab.easyfonts:easyfonts:1.0.0'
-    implementation 'com.google.android.support:wearable:2.7.0'
-    implementation 'com.google.android.gms:play-services-wearable:17.0.0'
+    implementation 'com.google.android.support:wearable:2.8.1'
+    implementation 'com.google.android.gms:play-services-wearable:17.1.0'
 }
