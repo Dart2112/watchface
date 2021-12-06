@@ -221,6 +221,8 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                 mTimePaint.setAntiAlias(false);
                 mDatePaint.setAntiAlias(false);
             } else {
+                //make battery % update when screen wakes
+                mBatteryCounter = 3;
                 mTimePaint.setAntiAlias(true);
                 mDatePaint.setAntiAlias(true);
             }
