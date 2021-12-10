@@ -31,6 +31,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.BatteryManager;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -44,6 +45,7 @@ import net.lapismc.watchface.R;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Random;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -70,7 +72,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
         private static final float STROKE_WIDTH = 3f;
         /* Handler to update the time once a second in interactive mode. */
         @SuppressLint("HandlerLeak")
-        private final Handler mUpdateTimeHandler = new Handler() {
+        private final Handler mUpdateTimeHandler = new Handler(Looper.myLooper()) {
             @Override
             public void handleMessage(Message message) {
                 if (R.id.message_update == message.what) {
@@ -180,10 +182,10 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             mBatteryPaint.setTypeface(EasyFonts.robotoMedium(getBaseContext()));
             mBatteryCounter = 3;
 
-            mAllInfoTimeFormat = new SimpleDateFormat("hh:mm:ss dd/MM/yyyy");
-            mTimeFormat = new SimpleDateFormat("hh:mm");
-            mCleanDateFormat = new SimpleDateFormat("EE dd MMM");
-            mStandardDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            mAllInfoTimeFormat = new SimpleDateFormat("hh:mm:ss dd/MM/yyyy", Locale.ENGLISH);
+            mTimeFormat = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
+            mCleanDateFormat = new SimpleDateFormat("EE dd MMM", Locale.ENGLISH);
+            mStandardDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
             mCalendar = Calendar.getInstance();
             mIsCleanDateFormat = true;
