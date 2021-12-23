@@ -30,6 +30,7 @@ import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -37,7 +38,11 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.support.wearable.watchface.CanvasWatchFaceService;
 import android.support.wearable.watchface.WatchFaceStyle;
+import android.util.DisplayMetrics;
 import android.view.SurfaceHolder;
+import android.view.WindowManager;
+
+import androidx.annotation.RequiresApi;
 
 import com.vstechlab.easyfonts.EasyFonts;
 
@@ -132,6 +137,7 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
 
         private MediaPlayer mMediaPlayer;
 
+        @RequiresApi(api = Build.VERSION_CODES.Q)
         @Override
         public void onCreate(SurfaceHolder holder) {
             super.onCreate(holder);
@@ -158,25 +164,26 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             mSilentModePaint = new Paint();
             mSilentModePaint.setColor(mSilentModeColor);
 
-            float textScale = 1.2f;
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay()
+                    .getMetrics(displayMetrics);
+            float textScale = (float) (displayMetrics.scaledDensity * 0.7);
+            System.out.println("TextScale: " + textScale);
 
             mTimePaint = new Paint();
-            mTimePaint.setTextSize(110);
-            mTimePaint.setTextSize(mTimePaint.getTextSize() * textScale);
+            mTimePaint.setTextSize(100 * textScale);
             mTimePaint.setColor(Color.WHITE);
             mTimePaint.setAntiAlias(true);
             mTimePaint.setTypeface(EasyFonts.captureIt(getBaseContext()));
 
             mDatePaint = new Paint();
-            mDatePaint.setTextSize(25);
-            mDatePaint.setTextSize(mDatePaint.getTextSize() * textScale);
+            mDatePaint.setTextSize(20 * textScale);
             mDatePaint.setColor(Color.WHITE);
             mDatePaint.setAntiAlias(true);
             mDatePaint.setTypeface(EasyFonts.droidSerifRegular(getBaseContext()));
 
             mBatteryPaint = new Paint();
-            mBatteryPaint.setTextSize(50);
-            mBatteryPaint.setTextSize(mBatteryPaint.getTextSize() * textScale);
+            mBatteryPaint.setTextSize(45 * textScale);
             mBatteryPaint.setColor(Color.WHITE);
             mBatteryPaint.setAntiAlias(true);
             mBatteryPaint.setTypeface(EasyFonts.robotoMedium(getBaseContext()));
