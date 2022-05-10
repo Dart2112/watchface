@@ -1,9 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.percentlayout:percentlayout:1.0.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b9dd041af49fd7ae852ea7a0250b9986/transformed/percentlayout-1.0.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b9dd041af49fd7ae852ea7a0250b9986/transformed/percentlayout-1.0.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b9dd041af49fd7ae852ea7a0250b9986/transformed/percentlayout-1.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/8178a1ca8f995cc4a1b04e01c956d1fc/transformed/percentlayout-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8178a1ca8f995cc4a1b04e01c956d1fc/transformed/percentlayout-1.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8178a1ca8f995cc4a1b04e01c956d1fc/transformed/percentlayout-1.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/943efc10260bf561ee5be34e3461cfbf/transformed/percentlayout-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/943efc10260bf561ee5be34e3461cfbf/transformed/percentlayout-1.0.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/943efc10260bf561ee5be34e3461cfbf/transformed/percentlayout-1.0.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -200,10 +200,13 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.beep);
 
 
-            //Set max volume on boot, this is in case it was in silent mode when the watch booted
+            //Set silent mode if it was active before reboot
             AudioManager man = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            int currentVolume = man.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
             int maxVolume = man.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-            man.setStreamVolume(AudioManager.STREAM_NOTIFICATION, maxVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+            if (maxVolume != currentVolume && !mIsSilentMode) {
+                toggleSilentMode();
+            }
         }
 
         @Override
@@ -267,17 +270,21 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
                 }
             } else {
                 if (mLastTapTime != 0 && System.currentTimeMillis() - mLastTapTime < 1000) {
-                    mIsSilentMode = !mIsSilentMode;
-                    //Process ring volume change for silent mode
-                    AudioManager man = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-                    if (mIsSilentMode) {
-                        man.setStreamVolume(AudioManager.STREAM_NOTIFICATION, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                    } else {
-                        int maxVolume = man.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-                        man.setStreamVolume(AudioManager.STREAM_NOTIFICATION, maxVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                    }
+                    toggleSilentMode();
                 }
                 mLastTapTime = System.currentTimeMillis();
+            }
+        }
+
+        private void toggleSilentMode() {
+            mIsSilentMode = !mIsSilentMode;
+            //Process ring volume change for silent mode
+            AudioManager man = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            if (mIsSilentMode) {
+                man.setStreamVolume(AudioManager.STREAM_NOTIFICATION, 0, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+            } else {
+                int maxVolume = man.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                man.setStreamVolume(AudioManager.STREAM_NOTIFICATION, maxVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             }
         }
 

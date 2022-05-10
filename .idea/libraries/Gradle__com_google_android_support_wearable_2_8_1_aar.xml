@@ -1,9 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.android.support:wearable:2.8.1@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c73bf9633b48890bc98f46a43cccefa2/transformed/jetified-wearable-2.8.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c73bf9633b48890bc98f46a43cccefa2/transformed/jetified-wearable-2.8.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c73bf9633b48890bc98f46a43cccefa2/transformed/jetified-wearable-2.8.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/88b1f447e0c6b9cc94998533f8f89d54/transformed/jetified-wearable-2.8.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/88b1f447e0c6b9cc94998533f8f89d54/transformed/jetified-wearable-2.8.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/88b1f447e0c6b9cc94998533f8f89d54/transformed/jetified-wearable-2.8.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c071b1693218d77c8c243e1d70bd3d7e/transformed/jetified-wearable-2.8.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c071b1693218d77c8c243e1d70bd3d7e/transformed/jetified-wearable-2.8.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c071b1693218d77c8c243e1d70bd3d7e/transformed/jetified-wearable-2.8.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

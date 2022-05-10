@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/watchface.iml" filepath="$PROJECT_DIR$/watchface.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/face/watchface.face.iml" filepath="$PROJECT_DIR$/.idea/modules/face/watchface.face.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/face/watchface.face.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/face/watchface.face.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/face/watchface.face.main.iml" filepath="$PROJECT_DIR$/.idea/modules/face/watchface.face.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/face/watchface.face.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/face/watchface.face.unitTest.iml" />
     </modules>
   </component>
 </project>
