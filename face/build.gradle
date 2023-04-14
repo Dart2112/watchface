@@ -52,8 +52,8 @@ configurations.all {
 
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
-    compileOnly 'com.google.android.wearable:wearable:2.8.1'
+    compileOnly 'com.google.android.wearable:wearable:2.9.0'
     implementation 'com.vstechlab.easyfonts:easyfonts:1.0.0'
-    implementation 'com.google.android.support:wearable:2.8.1'
-    implementation 'com.google.android.gms:play-services-wearable:17.1.0'
+    implementation 'com.google.android.support:wearable:2.9.0'
+    implementation 'com.google.android.gms:play-services-wearable:18.0.0'
 }
