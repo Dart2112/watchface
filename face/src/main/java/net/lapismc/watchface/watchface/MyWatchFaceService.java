@@ -43,8 +43,7 @@ import android.view.SurfaceHolder;
 import android.view.WindowManager;
 
 import androidx.annotation.RequiresApi;
-
-import com.vstechlab.easyfonts.EasyFonts;
+import androidx.core.content.res.ResourcesCompat;
 
 import net.lapismc.watchface.R;
 
@@ -174,19 +173,19 @@ public class MyWatchFaceService extends CanvasWatchFaceService {
             mTimePaint.setTextSize(100 * textScale);
             mTimePaint.setColor(Color.WHITE);
             mTimePaint.setAntiAlias(true);
-            mTimePaint.setTypeface(EasyFonts.captureIt(getBaseContext()));
+            mTimePaint.setTypeface(ResourcesCompat.getFont(getBaseContext(), R.font.capture_it));
 
             mDatePaint = new Paint();
             mDatePaint.setTextSize(20 * textScale);
             mDatePaint.setColor(Color.WHITE);
             mDatePaint.setAntiAlias(true);
-            mDatePaint.setTypeface(EasyFonts.droidSerifRegular(getBaseContext()));
+            mDatePaint.setTypeface(ResourcesCompat.getFont(getBaseContext(), R.font.droid_serif_regular));
 
             mBatteryPaint = new Paint();
             mBatteryPaint.setTextSize(45 * textScale);
             mBatteryPaint.setColor(Color.WHITE);
             mBatteryPaint.setAntiAlias(true);
-            mBatteryPaint.setTypeface(EasyFonts.robotoMedium(getBaseContext()));
+            mBatteryPaint.setTypeface(ResourcesCompat.getFont(getBaseContext(), R.font.roboto_medium));
             mBatteryCounter = 3;
 
             mAllInfoTimeFormat = new SimpleDateFormat("hh:mm:ss dd/MM/yyyy", Locale.ENGLISH);
